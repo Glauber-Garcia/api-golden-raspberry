@@ -3,8 +3,8 @@ package com.br.glauber.apigoldenraspberry.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "winner")
-public class Winner {
+@Table(name = "nominnes")
+public class Nominee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

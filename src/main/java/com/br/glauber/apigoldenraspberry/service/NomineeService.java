@@ -1,7 +1,7 @@
 package com.br.glauber.apigoldenraspberry.service;
 
-import com.br.glauber.apigoldenraspberry.model.Winner;
-import com.br.glauber.apigoldenraspberry.repository.WinnerRepository;
+import com.br.glauber.apigoldenraspberry.model.Nominee;
+import com.br.glauber.apigoldenraspberry.repository.NomineeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +10,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class WinnerService {
-    private static final Logger LOGGER = Logger.getLogger(WinnerService.class.getName());
+public class NomineeService {
+    private static final Logger LOGGER = Logger.getLogger(NomineeService.class.getName());
     @Autowired
-    private WinnerRepository repository;
+    private NomineeRepository repository;
     String line = "";
     public void savWinnerData(){
         try {
@@ -21,7 +21,7 @@ public class WinnerService {
             while((line = br.readLine()) != null){
                 if( !line.startsWith("year;title;studios;producers;winner")) {
                     String[] data = line.split(";");
-                    Winner dt = new Winner();
+                    Nominee dt = new Nominee();
                     dt.setYear(Long.parseLong(data[0]));
                     dt.setTitle(data[1]);
                     dt.setStudios(data[2]);
