@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,20 +17,21 @@ public class NomineeService {
     @Autowired
     private NomineeRepository repository;
     String line = "";
-    public void savWinnerData(){
+
+    public void savWinnerData() {
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/main/resources/movielist.csv"));
-            while((line = br.readLine()) != null){
-                if( !line.startsWith("year;title;studios;producers;winner")) {
+            while ((line = br.readLine()) != null) {
+                if (!line.startsWith("year;title;studios;producers;winner")) {
                     String[] data = line.split(";");
                     Nominee dt = new Nominee();
                     dt.setYear(Long.parseLong(data[0]));
                     dt.setTitle(data[1]);
                     dt.setStudios(data[2]);
                     dt.setProducers(data[3]);
-                    if( data.length > 4 ){
+                    if (data.length > 4) {
                         dt.setWinner(true);
-                    }else{
+                    } else {
                         dt.setWinner(false);
                     }
 
@@ -40,5 +43,15 @@ public class NomineeService {
             e.printStackTrace();
         }
 
+    }
+
+    public List<Nominee> getAllNominees() {
+        List<Nominee> list = (List<Nominee>) repository.findAll();
+        return list;
+    }
+
+    public List<Nominee> getAlLWinnerNominees() {
+        List<Nominee> list = repository.findAllByWinnerTrue();
+        return list;
     }
 }

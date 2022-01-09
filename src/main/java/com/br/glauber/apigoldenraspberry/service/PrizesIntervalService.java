@@ -1,6 +1,5 @@
 package com.br.glauber.apigoldenraspberry.service;
 
-import com.br.glauber.apigoldenraspberry.model.NomineeDTO;
 import com.br.glauber.apigoldenraspberry.model.PrizesInterval;
 import com.br.glauber.apigoldenraspberry.model.Nominee;
 import com.br.glauber.apigoldenraspberry.model.PrizesIntervalData;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @Service
 public class PrizesIntervalService {
@@ -29,9 +27,64 @@ public class PrizesIntervalService {
         List<Nominee> listFinal = getProducersSeparated(list);
         //entra na função que pega os vencedores com mais de um premio
         List<Nominee> doubleWinners = getDoubleWinners(listFinal);
+        //entra na função que separa os vencedores com o padrão de objeto necessário para a resposta do Json da API
+        List<PrizesIntervalData> listPID = getPrizesIntervalData(doubleWinners);
+        //agora verifica quais os vencedores com menor intervalo de vitorias;
+        p.setMin(getWinnerMin(listPID));
+        p.setMax(getWinnerMax(listPID));
+
+        return p;
+
+    }
+
+    private List<PrizesIntervalData> getWinnerMin(List<PrizesIntervalData> listPID) {
+        List<PrizesIntervalData> list = new ArrayList<>();
+        //cria um index e armazena o menor valor de intervalo
+        Long index = 0L;
+        for (PrizesIntervalData pid : listPID) {
+            if (index == 0L) {
+                index = pid.getInterval();
+            }else{
+                if( pid.getInterval() < index ){
+                    index = pid.getInterval();
+                }
+            }
+        }
+        //com o menor valor de intervalo ja preenchido, verificar qual ou quais objetos tem esse intervalo
+        for( PrizesIntervalData pid : listPID ){
+            if( pid.getInterval() == index ){
+                list.add(pid);
+            }
+        }
+        return list;
+    }
+
+    private List<PrizesIntervalData> getWinnerMax(List<PrizesIntervalData> listPID) {
+        List<PrizesIntervalData> list = new ArrayList<>();
+        //cria um index e armazena o menor valor de intervalo
+        Long index = 0L;
+        for (PrizesIntervalData pid : listPID) {
+            if (index == 0L) {
+                index = pid.getInterval();
+            }else{
+                if( pid.getInterval() > index ){
+                    index = pid.getInterval();
+                }
+            }
+        }
+        //com o menor valor de intervalo ja preenchido, verificar qual ou quais objetos tem esse intervalo
+        for( PrizesIntervalData pid : listPID ){
+            if( pid.getInterval() == index ){
+                list.add(pid);
+            }
+        }
+        return list;
+    }
+
+    private List<PrizesIntervalData> getPrizesIntervalData(List<Nominee> doubleWinners) {
         List<PrizesIntervalData> listPrizesData = new ArrayList<>();
         List<String> ls = new ArrayList<>();
-        for (Nominee nm : doubleWinners){
+        for (Nominee nm : doubleWinners) {
             ls.add(nm.getProducers());
         }
         Set<String> set = new HashSet<>(ls);
@@ -67,11 +120,7 @@ public class PrizesIntervalService {
             pd.setInterval(follwingWin - previousWin);
             listPrizesData.add(pd);
         }
-
-        p.setMin(listPrizesData);
-        p.setMax(listPrizesData);
-        return p;
-
+        return listPrizesData;
     }
 
     private List<Nominee> getDoubleWinners(List<Nominee> listNominee) {
