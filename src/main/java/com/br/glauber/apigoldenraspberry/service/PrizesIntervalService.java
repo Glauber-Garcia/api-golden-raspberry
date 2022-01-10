@@ -18,11 +18,11 @@ import java.util.logging.Logger;
 public class PrizesIntervalService {
     private static final Logger LOGGER = Logger.getLogger(PrizesIntervalService.class.getName());
     @Autowired
-    private NomineeRepository wr;
+    private NomineeRepository nomineeRepository;
 
     public PrizesInterval getPrizesInterval() {
         PrizesInterval p = new PrizesInterval();
-        List<Nominee> list = wr.findAllByWinnerTrue();
+        List<Nominee> list = nomineeRepository.findAllByWinnerTrue();
         //entra na função que separa os produtores
         List<Nominee> listFinal = getProducersSeparated(list);
         //entra na função que pega os vencedores com mais de um premio

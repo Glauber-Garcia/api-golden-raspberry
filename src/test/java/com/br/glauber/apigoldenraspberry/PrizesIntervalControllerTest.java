@@ -1,0 +1,22 @@
+package com.br.glauber.apigoldenraspberry;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+public class PrizesIntervalControllerTest {
+
+    @Autowired
+    MockMvc mockMvc;
+
+    @Test
+    public void prizesInteralControllerTestGetAll() throws Exception {
+        mockMvc.perform(get("/prizes/interval")).andExpect(status().isOk());
+    }
+}
