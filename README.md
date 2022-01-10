@@ -57,17 +57,13 @@ Tabela de conteúdos
 
 ## 🚀 Como executar o projeto
 
-Backend (pasta server)
-
 ### Pré-requisitos
 
-Antes de começar, você vai precisar ter instalado em sua máquina o java na versão 11 ou maior:
-[JAVA](https://www.oracle.com/br/java/technologies/javase/jdk11-archive-downloads.html).
+Antes de começar, você vai precisar ter instalado em sua máquina o [JAVA](https://www.oracle.com/br/java/technologies/javase/jdk11-archive-downloads.html) na versão 11 ou maior. Caso queira debugar o código, utilize uma IDE como o **[IntelliJ IDEA](https://www.jetbrains.com/pt-br/idea/)**:
 
-#### 🎲 Rodando o Backend (servidor)
+#### 🎲 Rodando fora de uma IDE
 
 ```bash
-
 # Clone este repositório
 $ git clone git@github.com:Glauber-Garcia/api-golden-raspberry.git
 
@@ -81,8 +77,20 @@ $ cd target
 $ java -jar api-golden-raspberry-0.0.1-SNAPSHOT.jar 
 
 # O servidor inciará na porta:8080 - acesse http://localhost:8080 
-# Para testar o retorno da API utilize o SwaggerUI
+```
+#### 🎲 Rodando em uma IDE (IntelliJ IDEA)
 
+```bash
+# Clone este repositório
+$ git clone git@github.com:Glauber-Garcia/api-golden-raspberry.git
+
+# Abra a IDE e selecione o projeto na pasta correta.
+
+# Ao abrir aguarde a IDE terminar de carregar o ambiente e baixar as bibliotecas necessárias.
+
+# Ao finalizar, execute o projeto.
+
+# O servidor inciará na porta:8080 - acesse http://localhost:8080 
 ```
 #### 🎲 Testando a API com o SwaggerUI
 ```bash
@@ -95,12 +103,12 @@ $ http://localhost:8080/swagger-ui.html#/
 # Selecione o método que deseja executar
 
 # Clique em Try it out
+
 # Depois clique em Execute 
 
 # Ao rolar para baixo você verá o retorno da requisição REST
 
 ```
-
 ---
 
 ## 🛠 Tecnologias
