@@ -110,15 +110,17 @@ public class PrizesIntervalService {
                             }
                         }
                     }
+                    if( previousWin != 0L && follwingWin != 0L ){
+                        //CRIA O OBJETO DATA PARA PODER CRIAR UMA LISTA E DEPOIS PREENCHELA CORRETAMENTE PARA PODER INSERIR NO RETORNO DA API
+                        PrizesIntervalData pd = new PrizesIntervalData();
+                        pd.setProducer(dN);
+                        pd.setPreviousWin(previousWin);
+                        pd.setFollowingWin(follwingWin);
+                        pd.setInterval(follwingWin - previousWin);
+                        listPrizesData.add(pd);
+                    }
                 }
             }
-            //CRIA O OBJETO DATA PARA PODER CRIAR UMA LISTA E DEPOIS PREENCHELA CORRETAMENTE PARA PODER INSERIR NO RETORNO DA API
-            PrizesIntervalData pd = new PrizesIntervalData();
-            pd.setProducer(dN);
-            pd.setPreviousWin(previousWin);
-            pd.setFollowingWin(follwingWin);
-            pd.setInterval(follwingWin - previousWin);
-            listPrizesData.add(pd);
         }
         return listPrizesData;
     }
@@ -132,7 +134,7 @@ public class PrizesIntervalService {
             int nroVictory = 0;
             //passa pela lista de nominados para verificar se ele tem mais de uma vitoria
             for (Nominee n1 : listNominee) {
-                //se ele for o nominado que esta no primeiro loop, ele adiociona mais 1 a vitoria
+                //se ele for o nominado que esta no primeiro loop, ele adiciona mais 1 a vitoria
                 if (n1.getProducers().equals(n.getProducers())) {
                     nroVictory += 1;
                 }
